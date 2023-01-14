@@ -4,7 +4,7 @@ import json
 
 def main():
     """?"""
-    patient_drugs = []
+    patient_drugs = ["10171"]
     drug_name = input('input drug name')
     rxcui = drug_id_finder(drug_name)
     if rxcui != False:
@@ -32,8 +32,9 @@ def contra_checker(patient_drugs):
         response = requests.get(url).json()
         interaction_pairs = response["interactionTypeGroup"][0]["interactionType"][0]["interactionPair"]
         for pair in interaction_pairs:
-            pair = pair["interactionConcept"][1]["minConceptItem"]["rxcui"]
-            print(pair)
+            pair_rxcui = pair["interactionConcept"][1]["minConceptItem"]["rxcui"]
+            if pair_rxcui in patient_drugs:
+                print(pair["description"])
 
 
 if __name__ == '__main__':
