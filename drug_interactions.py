@@ -28,9 +28,12 @@ def contra_checker(patient_drugs):
     for i, drug in enumerate(patient_drugs):
         print(i, drug)
         url = (f'https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui={drug}')
-        response = requests.get(url)
-        print(json.dumps(response.json(), indent=2))
-
+        #&sources=ONCHigh
+        response = requests.get(url).json()
+        interaction_pairs = response["interactionTypeGroup"][0]["interactionType"][0]["interactionPair"]
+        for pair in interaction_pairs:
+            pair = pair["interactionConcept"][1]["minConceptItem"]["rxcui"]
+            print(pair)
 
 
 if __name__ == '__main__':
