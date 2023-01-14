@@ -1,0 +1,11 @@
+# Set up a list that will contain all RxCUI numbers to be cross referenced
+
+# Start a loop to prompt user for their drug names
+    # Prompt user for a drug name
+    # If a drug name come back with an RxCUI number, add it to the list
+    # Else, print an error message (misspelling, or maybe just not in the database, etc.)
+    # Prompt the user asking if they're done
+    # If yes, break the while loop
+
+# Once RxCUI numbers are in the list, start iterating through the list and check for references of all other drugs in the list
+    # If a reference is found, print out the warning description
