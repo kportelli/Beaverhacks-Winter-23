@@ -25,8 +25,10 @@ def main():
 
 def drug_id_finder(drug_name):
     """returns the rxcui of a given medication"""
+    #Queries National Library of Medicine API for RXCUI of given medication
     api_url = (f'https://rxnav.nlm.nih.gov/REST/rxcui.json?name={drug_name}')
     response = requests.get(api_url)
+    #If no valid RXCUI, return False
     try:
         response = response.json()
         rxcui = response["idGroup"]["rxnormId"][0]
