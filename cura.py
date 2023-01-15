@@ -14,7 +14,10 @@ def main():
         print('No drugs were input')
         sys.exit()
     count = contra_checker(patient_drugs)
-    print('There were', count,'interactions found.')
+    if count == 1:
+        print('There was', count,'interaction found.')
+    else:
+        print('There were', count,'interactions found.')
 
 def generate_list():
     """Builds list of patient rxcuis"""
