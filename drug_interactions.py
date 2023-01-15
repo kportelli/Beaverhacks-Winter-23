@@ -7,7 +7,9 @@ def main():
     print('It is not this applications intention to provide specific medical advice, but rather to provide users with information to better understand their health and their medications. You should consult with a qualified physician for advice about medications.', end='\n\n')
     print("This application is intended for educational and scientific research purposes only and you expressly acknowledge and agree that use of this application is at your sole risk. The accuracy of this application's information is not guaranteed and reliance on this application shall be at your sole risk. This application is not intended as a substitute for professional medical advice, diagnosis or treatment.", end='\n\n')
 
-
+    patient_drugs = generate_list()
+    count = contra_checker(patient_drugs)
+    print('There were', count,'interactions found.')
 
 
 def generate_list():
@@ -23,9 +25,7 @@ def generate_list():
                 response = input('Response must be Y or N: ').lower()
         else:
             print("invalid drug name")
-
-    count = contra_checker(patient_drugs)
-    print('There were', count,'interactions found.')
+    return patient_drugs
 
 
 def drug_id_finder(drug_name):
