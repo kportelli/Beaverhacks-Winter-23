@@ -3,6 +3,7 @@
 #Tyson Pederson, Kathryn Portelli, Brittany Stachkunis, Hannah Weeks
 
 Welcome to Cura! 
+
 Cura is a program intended to help catch and prevent interactions between medications. It is not a replacement for 
 medical care or communicating with your medical provider rather it is a tool to ensure you are as informed as possible 
 on your medical care. Cura allows a user to input their current medications and checks for any possible interactions. 
@@ -10,6 +11,7 @@ If the program finds an interaction, it will alert the user and advise them to s
 interactions are found, then Cura let's the user know it found 0 interactions. 
 
 Disclaimer:
+
 It is not this programs intention to provide specific medical advice, but rather to provide users with information to 
 better understand their health and their medications. You should consult with a qualified physician for advice about 
 medications.
@@ -21,6 +23,8 @@ professional medical advice, diagnosis or treatment.
 
 
 Technologies required to use Cura:
+
 *Python
+
 *Requests 
     click here to install: https://pypi.org/project/requests/
