@@ -6,17 +6,26 @@ def main():
     """?"""
     print('It is not this applications intention to provide specific medical advice, but rather to provide users with information to better understand their health and their medications. You should consult with a qualified physician for advice about medications.', end='\n\n')
     print("This application is intended for educational and scientific research purposes only and you expressly acknowledge and agree that use of this application is at your sole risk. The accuracy of this application's information is not guaranteed and reliance on this application shall be at your sole risk. This application is not intended as a substitute for professional medical advice, diagnosis or treatment.", end='\n\n')
-    
+
+
+
+
+def generate_list():
     patient_drugs = ["10171", '153010']
+    response = "y"
+    while response == "y":
+        drug_name = input('Input drug name: ')
+        rxcui = drug_id_finder(drug_name)
+        if rxcui != False:
+            patient_drugs.append(rxcui)
+            response = input('Add another medication? Enter Y or N: ').lower()
+            while response != "n" and response != "y":
+                response = input('Response must be Y or N: ').lower()
+        else:
+            print("invalid drug name")
 
-    drug_name = input('Input drug name: ')
-    rxcui = drug_id_finder(drug_name)
-    if rxcui != False:
-        patient_drugs.append(rxcui)
-    else:
-        print("invalid drug name")
-
-    contra_checker(patient_drugs)
+    count = contra_checker(patient_drugs)
+    print('There were', count,'interactions found.')
 
 
 def drug_id_finder(drug_name):
@@ -34,6 +43,7 @@ def drug_id_finder(drug_name):
 #Once RxCUI numbers are in the list, start iterating through the list and check for references of all other drugs in the list
 def contra_checker(patient_drugs):
     """Check all drugs in users drug list against each other for any interactions"""
+    count = 0
     for i, drug in enumerate(patient_drugs[:len(patient_drugs) - 1]):
         url = (f'https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui={drug}')
         response = requests.get(url).json()
@@ -44,6 +54,8 @@ def contra_checker(patient_drugs):
             drug_name = pair["interactionConcept"][0]["minConceptItem"]["name"]
             if pair_rxcui in patient_drugs[i+1:]:
                 print(f'{drug_name.capitalize()} may interact with {pair_name.capitalize()}, you may want to talk your doctor.')
+                count = count + 1
+    return count
 
 
 if __name__ == '__main__':
