@@ -30,13 +30,14 @@ def drug_id_finder(drug_name):
 
 #Once RxCUI numbers are in the list, start iterating through the list and check for references of all other drugs in the list
 def contra_checker(patient_drugs):
-    for i, drug in enumerate(patient_drugs):
+    """Check all drugs in users drug list against each other for any interactions"""
+    for i, drug in enumerate(patient_drugs[:len(patient_drugs) - 1]):
         url = (f'https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui={drug}')
         response = requests.get(url).json()
         interaction_pairs = response["interactionTypeGroup"][0]["interactionType"][0]["interactionPair"]
         for pair in interaction_pairs:
             pair_rxcui = pair["interactionConcept"][1]["minConceptItem"]["rxcui"]
-            if pair_rxcui in patient_drugs[i:]:
+            if pair_rxcui in patient_drugs[i+1:]:
                 print(pair["description"])
 
 
