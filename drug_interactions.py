@@ -13,9 +13,10 @@ def main():
     print('There were', count,'interactions found.')
 
 def generate_list():
-    #"10171" advil, '153010'
+    """Builds list of patient rxcuis"""
     patient_drugs = []
     response = "y"
+    #prompt user for drug name, reprompt if invalid name given
     while response == "y":
         drug_name = input('Input drug name: ')
         rxcui = drug_id_finder(drug_name)
@@ -32,7 +33,7 @@ def generate_list():
 
 
 def drug_id_finder(drug_name):
-    """returns the rxcui of a given drug"""
+    """Queries National Library of Medicine api to pull the rxcui of given drug"""
     api_url = (f'https://rxnav.nlm.nih.gov/REST/rxcui.json?name={drug_name}')
     response = requests.get(api_url)
     try:
@@ -47,13 +48,16 @@ def contra_checker(patient_drugs):
     """Check all drugs in users drug list against each other for any interactions"""
     count = 0
     for i, drug in enumerate(patient_drugs[:len(patient_drugs) - 1]):
+        #create a list of interaction pairs for a specific drug in list
         url = (f'https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui={drug}')
         response = requests.get(url).json()
         interaction_pairs = response["interactionTypeGroup"][0]["interactionType"][0]["interactionPair"]
+        #cross check every interaction pair against the remaining drugs in the list
         for pair in interaction_pairs:
             pair_rxcui = pair["interactionConcept"][1]["minConceptItem"]["rxcui"]
             pair_name = pair["interactionConcept"][1]["minConceptItem"]["name"]
             drug_name = pair["interactionConcept"][0]["minConceptItem"]["name"]
+            #if an interaction pair is found, print warning message
             if pair_rxcui in patient_drugs[i+1:]:
                 print(f'{drug_name.capitalize()} may interact with {pair_name.capitalize()}, you may want to talk your doctor.')
                 count = count + 1
