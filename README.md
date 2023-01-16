@@ -1,5 +1,5 @@
 #Theme "Health"
-#Team WYCM
+#Team WCYM
 #Tyson Pederson, Kathryn Portelli, Brittany Stachkunis, Hannah Weeks
 
 Welcome to Cura! 

@@ -1,6 +1,6 @@
 #Beaverhacks Winter 2023 Hackathon
 #Theme "Health"
-#Team WYCM
+#Team WCYM
 #Tyson Pederson, Kathryn Portelli, Brittany Stachkunis, Hannah Weeks
 
 import requests
